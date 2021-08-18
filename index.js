@@ -18,7 +18,6 @@ serve({
     const u = cat("http://ip-api.com/json", url.pathname == "/" ? `/${ip}` : url.pathname, paramResult);
    
     const res = await fetch(u, req).then((d) => {
-      console.log(d.url);
       return d;
     });
     return res;
