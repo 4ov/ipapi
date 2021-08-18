@@ -7,7 +7,8 @@ import cat from "https://esm.sh/urlcat";
 serve({
   "/:query*": async (req) => {
     const url = new URL(req.url)
-    console.log(url.pathname);
+    const ip = req.headers.get("x-forwarded-for");
+    console.log(ip);
     const searchParams = url.searchParams;
     const keys = [...searchParams.keys()];
     const values = [...searchParams.values()];
@@ -15,7 +16,6 @@ serve({
       p[c] = values[i];
       return p;
     }, {});
-    console.log(paramResult);
     const u = cat("http://ip-api.com/json", url.pathname, paramResult);
    
     const res = await fetch(u, req).then((d) => {
